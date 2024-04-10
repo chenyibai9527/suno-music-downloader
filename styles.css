@@ -1,0 +1,11 @@
+@import 'https://cdn.tailwindcss.com/2.0.2/tailwind.min.css';
+
+@layer base {
+  h1 {
+    font-family: 'Bungee Spice',cursive;
+  }
+  h2 {
+    font-family: 'Ubuntu', sans-serif;
+
+  }
+}
