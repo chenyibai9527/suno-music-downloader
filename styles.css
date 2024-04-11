@@ -8,4 +8,24 @@
     font-family: 'Ubuntu', sans-serif;
 
   }
+  .text-lg {
+    font-family: "Pixelify Sans", sans-serif;
+  }
+
+}
+
+.link {
+  font-family: "Pixelify Sans", sans-serif;
+  text-decoration:solid;
+  color:blueviolet;
+}
+
+button {
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: sans-serif;
+  font-optical-sizing:auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 1.5rem;
 }

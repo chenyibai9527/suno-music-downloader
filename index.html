@@ -20,6 +20,14 @@
         href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Pixelify+Sans:wght@400..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bungee+Spice&family=Pixelify+Sans:wght@400..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WR2B98ZPDD"></script>
     <script>
@@ -37,7 +45,7 @@
             <div class="text-left text-white   text-opacity-0 text-2xl font-extrabold">SunoAI Mp3 Music Downloader</div>
         </nav>
     </header>
-    <main class="container mx-auto max-w-lg pt-16 flex-grow">
+    <main class="container mx-auto max-w-lg ">
         <h1 class="font-Bungee+Spice text-center text-4xl py-6">SunoAI Music Downloader</h1>
         <h2 class="text-center text-xl py-6">Download any songs that you like from SunoAI</h2>
         <div class="my-3 ">
@@ -57,17 +65,28 @@
             https://suno.com/song/song-name</div>
         <button onclick="downloadSong()"
             class="w-full my-6 px-4 py-6 text-white bg-black hover:bg-opacity-75 rounded-full transition-colors duration-500">Download
-            Song for free</button>
+            it for free</button>
     </main>
     <script src="script.js"></script>
+    <script>
+        // 在页面加载时先执行一次函数，以确保初始状态的按钮是禁用的
+        window.addEventListener('DOMContentLoaded', function () {
+            checkInput();
+        });</script>
     <div id="songInfo"></div>
-    <footer class="text-center py-20 text-gray-800 flex-grow">
+    <footer class="text-center py-6 text-gray-800 flex-grow">
         <div class="container mx-auto">
-            Maybe you like:
-            <a class="px-4" href="https://www.suno.ai" target="_blank" rel="noopener noreferrer">Suno.ai</a>
-            <a class="px-4" href="https://www.suno.com" target="_blank" rel="noopener noreferrer">Suno.com</a>
-            <a class="px-4" href="https://www.sunoai.work" target="_blank" rel="noopener noreferrer">Sunoai.work</a>
-            <a class="px-4" href="https://www.aibiei.com" target="_blank" rel="noopener noreferrer">Aibiei.com</a>
+            <p class="text-lg">Maybe you like:</p>
+            <a class="px-4 link" href="https://www.suno.ai?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Suno.ai</a>
+            <a class="px-4 link" href="https://www.suno.com?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Suno.com</a>
+            <a class="px-4 link" href="https://www.sunoai.work?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Sunoai.work</a>
+            <a class="px-4 link" href="https://www.aibiei.com?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Aibiei.com</a>
+            <a class="px-4 link" href="https://www.udio.com?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Udio.com</a>
         </div>
     </footer>
 </body>
