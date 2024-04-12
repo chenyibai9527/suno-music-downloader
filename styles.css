@@ -2,7 +2,7 @@
 
 @layer base {
   h1 {
-    font-family: 'Bungee Spice',cursive;
+    font-family: 'Bungee Spice',sans-serif,cursive;
   }
   h2 {
     font-family: 'Ubuntu', sans-serif;

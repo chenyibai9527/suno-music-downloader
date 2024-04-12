@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>suno ai 歌曲下载：点击按钮即可下载Suno ai 生成的音乐歌曲mp3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="免费下载歌曲，免费下载suno ai 生成的歌曲，一键下载AI生成音乐">
+    <meta name="keywords"
+        content="SunoAI,免费下载歌曲,免费下载suno ai 生成的歌曲,一键下载AI生成音乐, Suno ai 音乐下载，Suno ai 歌曲下载，suno ai mp3下载,下载 suno ai 歌曲，下载 suno ai, 免费下载mp3,mp3免费下载, 怎么下载suno ai,怎么从suno ai 下载歌曲,怎么下载sunoai的mp3,怎么下载mp3，suno 怎么下载别人的歌, suno 怎么下载">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Pixelify+Sans:wght@400..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Bungee+Spice&family=Pixelify+Sans:wght@400..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WR2B98ZPDD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WR2B98ZPDD');
+    </script>
+</head>
+
+<body class="bg-gray-100 font-sans leading-normal tracking-normal text-center">
+    <!-- <header class="w-full py-6">
+        <nav class="mx-auto px-4 py-2 flex justify-between">
+            <div class="text-left text-white   text-opacity-0 text-2xl font-extrabold">SunoAI Mp3 Music Downloader</div>
+        </nav>
+    </header> -->
+    <nav id="menu">
+        <ul>
+            <li><img class="logoimg" src="https://suno.com/Suno-Logo-Lockup.svg" alt="suno ai download"></li>
+            <li><a class="selected" href="#">下载Suno</a></li>
+        </ul>
+    </nav>
+    <main class="container mx-auto max-w-lg pr-6 pl-6">
+        <h1 class="font-Bungee+Spice text-center text-4xl py-6">Suno AI 音乐下载</h1>
+        <h2 class="text-center text-xl py-6">从Suno ai上随意下载音乐歌曲Mp3</h2>
+        <div class="my-3">
+            <div>
+                <div class="relative mt-2 rounded-md shadow-sm">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    </div>
+                    <input type="text" id="songUrl"
+                        class="block w-full rounded-md border-0 py-6 pl-3 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="粘贴 Suno 生成的歌曲分享链接">
+
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="text-center text-sm py-3 text-gray-500">Suno ai 生成的音乐歌曲链接应该是这样的:<br />
+
+            https://suno.com/song/song-name</div>
+        <button onclick="downloadSong()"
+            class="w-full my-6 px-4 py-6 text-white bg-black hover:bg-opacity-75 rounded-full transition-colors duration-500">免费下载</button>
+
+    </main>
+
+    <script src="../script.js"></script>
+    <div id="songInfo"></div>
+    <footer class="text-center py-6 text-gray-800 flex-grow">
+        <div class="container mx-auto">
+            <p class="text-lg">猜你喜欢:</p>
+            <a class="px-4 link" href="https://www.suno.ai?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Suno.ai</a>
+            <a class="px-4 link" href="https://www.suno.com?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Suno.com</a>
+            <a class="px-4 link" href="https://www.sunoai.work?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Sunoai.work</a>
+            <a class="px-4 link" href="https://www.aibiei.com?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Aibiei.com</a>
+            <a class="px-4 link" href="https://www.udio.com?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Udio.com</a>
+            <a class="px-4 link" href="https://www.nospace.site?ref=download.sunoai.work" target="_blank"
+                rel="noopener noreferrer">Nospace.site</a>
+        </div>
+        <div class="text-center container mx-auto">
+            <p class="py-6">Sunoai.work 不是 Suno AI 的官方网站</p>
+        </div>
+    </footer>
+</body>
+
+</html>
