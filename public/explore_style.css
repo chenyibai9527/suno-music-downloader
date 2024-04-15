@@ -1,0 +1,40 @@
+#music-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.music-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 20px;
+    width: 200px;
+}
+
+.music-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.music-card h3 {
+    text-align: center;
+    color: #333;
+    font-size: 14px; 
+    height: 40px;
+}
+
+.music-card audio {
+    width: 100%;
+}
+
+.music-card a {
+    text-decoration: none;
+    color: #337ab7;
+    text-align: center;
+}

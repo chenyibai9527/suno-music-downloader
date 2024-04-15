@@ -1,0 +1,233 @@
+@import 'https://cdn.tailwindcss.com/2.0.2/tailwind.min.css';
+
+@layer base {
+  h1 {
+    font-family: 'Bungee Spice',sans-serif,cursive;
+  }
+  h2 {
+    font-family: 'Ubuntu', sans-serif;
+
+  }
+  .text-lg {
+    font-family: "Pixelify Sans", sans-serif;
+  }
+
+}
+
+.link {
+  font-family: "Pixelify Sans", sans-serif;
+  text-decoration:solid;
+  color:blueviolet;
+}
+
+button {
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: sans-serif;
+  font-optical-sizing:auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 1.5rem;
+}
+#menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 150px; /* 这是导航栏的宽度，你可以根据需要调整 */
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(30px);
+    border-top:#0d0935  solid 1px ;
+    justify-content: center;
+}
+#menu li {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+ 
+}
+#menu li img {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 8px;
+    text-align: center;
+}
+#menu li a {
+    height: 59px;
+    display: flex;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    align-items: center;
+    padding: 8px 8px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    font-weight: 800;
+    
+}
+
+#menu li a:hover {
+    text-align: center;
+    align-items: center;
+    background-color: #0d0935;
+    color: white;
+    padding: 8px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255,0.2);
+}
+
+#menu li a.selected {
+    text-align: center;
+    align-items: center;
+    background-color: #0d0935;
+    color: white;
+    padding: 8px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255,0.2);
+}
+
+#music-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.music-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 20px;
+  width: 200px;
+}
+
+.music-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.music-card h3 {
+  text-align: center;
+  color: #333;
+  font-size: 14px; 
+  height: 40px;
+}
+
+.music-card audio {
+  width: 100%;
+}
+
+.music-card a {
+  text-decoration: none;
+  color: #337ab7;
+  text-align: center;
+}
+
+
+
+@media screen and (max-width: 600px) {
+  #menu ul {
+      width: 100%; /* 使导航栏在移动设备上占据全宽 */
+      height: 49px;
+      bottom: 0; /* 将导航栏固定在底部 */
+      /* 文本居中和垂直居中对齐 */
+      align-items: center;
+  }
+  #menu li {
+      width: 33.33%; /* 如果你的导航栏有三项，那么每项的宽度应占33.33%。这个数字会根据你的导航项数量进行调整。 */
+      float: left;
+      height:40px;
+  }
+  #menu li logoimg {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    height: 40px;
+    text-align: center;
+}
+  #menu li a {
+      color: #fff;
+      text-align: center;
+      align-items: center;
+      text-decoration: none;
+      height: 40px;
+  }
+  #menu li a :hover {
+    text-align: center;
+    align-items: center;
+    background-color: #0d0935;
+    color: white;
+    padding: 8px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255,0.2);
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .container {
+    max-width: calc(100% - 150px); /* Subtract the width of the navigation bar */
+    width:fit-content;
+    padding-left: 150px; /* Add a left padding equal to the width of the navigation bar */
+  }
+  #menu li img {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+  #music-cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content:space-around;
+    max-width:calc(100% - 150px);
+    width:fit-content;
+    padding-left: 150px;
+  }
+  
+  .music-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 20px;
+    width: 200px;
+  }
+  
+  .music-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .music-card h3 {
+    text-align: center;
+    color: #333;
+    font-size: 14px; 
+    height: 40px;
+  }
+  
+  .music-card audio {
+    width: 100%;
+  }
+  
+  .music-card a {
+    text-decoration: none;
+    color: #337ab7;
+    text-align: center;
+  }
+
+}
