@@ -31,8 +31,8 @@ router.get('/explore', async (req, res) => {
                 <body>
                 <nav id="menu">
                     <ul>
-                        <li><img class="logoimg" src="/public/downloadlogo.png" alt="suno ai download"></li>
-                        <li><a class="selected" href="/index.html">DOWNLOAD</a></li>
+                        <li><img class="logoimg" src="https://cdnjson.com/images/2024/04/16/downloadlogo82a56eef63760804.th.png" alt="suno ai download"></li>
+                        <li><a href="/index.html">DOWNLOAD</a></li>
                         <li><a href="/explore">EXPLORE</a></li>
                     </ul>
                 </nav>
