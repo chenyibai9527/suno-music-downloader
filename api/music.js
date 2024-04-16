@@ -75,6 +75,15 @@ router.get("/explore", async (req, res) => {
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
                 <script src="https://cdn.tailwindcss.com"></script>
                 <script src="/script.js"></script>
+                <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-269BYQ7B3X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-269BYQ7B3X');
+</script>
             </head>
             <body>
                 <nav id="menu">
