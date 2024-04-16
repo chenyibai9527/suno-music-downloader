@@ -27,6 +27,7 @@ router.get('/explore', async (req, res) => {
             <head>
                 <title>Explore: Suno AI Song</title>
                 <link rel="stylesheet" type="text/css" href="/styles.css">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
             </head>
                 <body>
                 <nav id="menu">

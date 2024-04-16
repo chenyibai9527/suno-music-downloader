@@ -143,19 +143,21 @@ button {
       bottom: 0; /* 将导航栏固定在底部 */
       /* 文本居中和垂直居中对齐 */
       align-items: center;
+      z-index:1000;
   }
   #menu li {
       width: 33.33%; /* 如果你的导航栏有三项，那么每项的宽度应占33.33%。这个数字会根据你的导航项数量进行调整。 */
       float: left;
       height:40px;
   }
-  #menu li logoimg {
+  #menu li .logoimg {
     display: flex;
     align-items: center;
     margin-left: auto;
     margin-right: auto;
     justify-content: center;
     height: 40px;
+    width:40px;
     text-align: center;
 }
   #menu li a {
