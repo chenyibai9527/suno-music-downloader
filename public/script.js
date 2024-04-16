@@ -37,7 +37,7 @@ function removeLoader() {
             loaderContainerDiv.removeChild(loadingTextDiv);
         }
         if (loaderContainerDiv) {
-            overlayDiv.body.removeChild(loaderContainerDiv);
+            overlayDiv.removeChild(loaderContainerDiv);
         }
         if (overlayDiv) {
             document.body.removeChild(overlayDiv);
