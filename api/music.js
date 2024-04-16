@@ -31,7 +31,7 @@ router.get('/explore', async (req, res) => {
                 <body>
                 <nav id="menu">
                     <ul>
-                        <li><img class="logoimg" src="https://suno.com/Suno-Logo-Lockup.svg" alt="suno ai download"></li>
+                        <li><img class="logoimg" src="/public/downloadlogo.png" alt="suno ai download"></li>
                         <li><a class="selected" href="/index.html">DOWNLOAD</a></li>
                         <li><a href="/explore">EXPLORE</a></li>
                     </ul>
