@@ -1,4 +1,75 @@
 
+function createLoader() {
+    // 创建 overlayDiv，并添加到 body
+    let overlayDiv = document.createElement("div");
+    overlayDiv.id = "overlay";
+    document.body.appendChild(overlayDiv);
+
+    // 创建 loaderContainerDiv，并添加到 body
+    let loaderContainerDiv = document.createElement("div");
+    loaderContainerDiv.id = "loader-container";
+    document.body.appendChild(loaderContainerDiv);
+
+    // 创建 loaderDiv，并添加到 loaderContainerDiv
+    let loaderDiv = document.createElement("div");
+    loaderDiv.id = "loader";
+    loaderContainerDiv.appendChild(loaderDiv);
+
+    // 创建 loadingTextDiv，并添加到 loaderContainerDiv
+    let loadingTextDiv = document.createElement("div");
+    loadingTextDiv.id = "loading-text";
+    loadingTextDiv.innerHTML = "Downloading";
+    loaderContainerDiv.appendChild(loadingTextDiv);
+}
+
+function removeLoader() {
+    let loaderDiv = document.getElementById("loader");
+    let loadingTextDiv = document.getElementById("loading-text");
+    let loaderContainerDiv = document.getElementById("loader-container");
+    let overlayDiv = document.getElementById("overlay");
+
+    setTimeout(() => {
+
+        if (loaderDiv) {
+            loaderContainerDiv.removeChild(loaderDiv);
+        }
+        if (loadingTextDiv) {
+            loaderContainerDiv.removeChild(loadingTextDiv);
+        }
+        if (loaderContainerDiv) {
+            document.body.removeChild(loaderContainerDiv);
+        }
+        if (overlayDiv) {
+            document.body.removeChild(overlayDiv);
+        }
+    }, 1500);
+}
+
+
+// function showLoader(){
+//     let loader = document.getElementById("loader");
+//     let loaderContainer = document.getElementById("loader-container");
+//     let loaderText = document.getElementById("loading-text");
+//     let overlay = document.getElementById("overlay");
+//     loader.style.display = "block";
+//     loaderContainer.style.display = "flex";
+//     loaderText.style.display = "block";
+//     overlay.style.display = "block";
+
+// }
+
+// function hideLoader() {
+//     let loader = document.getElementById("loader");
+//     let loaderContainer = document.getElementById("loader-container");
+//     let loaderText = document.getElementById("loading-text");
+//     let overlay = document.getElementById("overlay");
+//     setTimeout(() => {
+//         loader.style.display = "none";
+//         loaderContainer.style.display = "none";
+//         loaderText.style.display = "none";
+//         overlay.style.display = "none"; 
+//     }, 1500);
+// }
 function downloadSong() {
     const input = document.getElementById('songUrl');
     //正确的链接格式：https://suno.ai/song/songid/,或者https://suno.com/songs/songid/
@@ -7,6 +78,7 @@ function downloadSong() {
         alert("your share link is not correct");//提示错误
         return;
     }
+    createLoader();
     //提取songid,如果链接格式为"https://suno.ai/song/songid/",则自动识别“song”后面两个"/"中间的songid
     let parts = input.value.split("/");
     if(parts[parts.length - 1]===""){
@@ -14,7 +86,7 @@ function downloadSong() {
     }
     const songId = parts.pop();
     const songUrl = `https://cdn1.suno.ai/${songId}.mp3`;
-
+    
     // use the fetch API to download the file
     fetch(songUrl)
         .then(response => response.blob())
@@ -33,8 +105,10 @@ function downloadSong() {
             // release the reference to the file by revoking the URL
             window.URL.revokeObjectURL(url);
         });
+    removeLoader();
 }
 function downloadVideo() {
+    
     const input = document.getElementById('songUrl');
     //正确的链接格式：https://suno.ai/song/songid/,或者https://suno.com/songs/songid/
     //正确识别songid
@@ -49,7 +123,8 @@ function downloadVideo() {
     }
     const songId = parts.pop();
     const songUrl = `https://cdn1.suno.ai/${songId}.mp4`;
-
+    
+    createLoader();
     // use the fetch API to download the file
     fetch(songUrl)
         .then(response => response.blob())
@@ -68,27 +143,5 @@ function downloadVideo() {
             // release the reference to the file by revoking the URL
             window.URL.revokeObjectURL(url);
         });
+    removeLoader();
 }
-
-// function showSong(){
-//     const input = document.getElementById('songUrl');
-//     fetch(input)
-//             .then(response => {
-//                 // 确保请求成功，否则抛出异常
-//                 if (!response.ok) {
-//                     throw new Error('Network response was not ok');
-//                 }
-//                 return response.json();  // 解析JSON数据 
-//             })
-//             .then(data => {
-//                 // 这里的data就是服务器返回的数据
-//                 const lyrics = data[8];
-//                 const songInformation = data[2];
-//                 const songLyrics = lyrics.replace(/\\n/g, '\n');
-//                 return {
-//                     image_url: songInformation[1][3]["image_url"],
-//                     audio_url: songInformation[1][3]["audio_url"],
-//                     lyrics: songLyrics
-//                 }
-//             })
-// }
