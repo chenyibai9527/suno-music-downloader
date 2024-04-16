@@ -34,6 +34,41 @@ function downloadSong() {
             window.URL.revokeObjectURL(url);
         });
 }
+function downloadVideo() {
+    const input = document.getElementById('songUrl');
+    //正确的链接格式：https://suno.ai/song/songid/,或者https://suno.com/songs/songid/
+    //正确识别songid
+    if (!input.value.startsWith("https://suno.ai/song/") && !input.value.startsWith("https://suno.com/song/")) {
+        alert("your share link is not correct");//提示错误
+        return;
+    }
+    //提取songid,如果链接格式为"https://suno.ai/song/songid/",则自动识别“song”后面两个"/"中间的songid
+    let parts = input.value.split("/");
+    if(parts[parts.length - 1]===""){
+        parts.pop();
+    }
+    const songId = parts.pop();
+    const songUrl = `https://cdn1.suno.ai/${songId}.mp4`;
+
+    // use the fetch API to download the file
+    fetch(songUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            // build a URL from the file
+            const url = window.URL.createObjectURL(blob);
+
+            // create a link and set it to the file URL
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${songId}.mp4`;
+
+            // programmatically click the link to trigger the download
+            link.click();
+
+            // release the reference to the file by revoking the URL
+            window.URL.revokeObjectURL(url);
+        });
+}
 
 // function showSong(){
 //     const input = document.getElementById('songUrl');
