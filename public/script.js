@@ -5,10 +5,10 @@ function createLoader() {
     overlayDiv.id = "overlay";
     document.body.appendChild(overlayDiv);
 
-    // 创建 loaderContainerDiv，并添加到 body
+    // 创建 loaderContainerDiv，并添加到 overlayDiv
     let loaderContainerDiv = document.createElement("div");
     loaderContainerDiv.id = "loader-container";
-    document.body.appendChild(loaderContainerDiv);
+    overlayDiv.appendChild(loaderContainerDiv);
 
     // 创建 loaderDiv，并添加到 loaderContainerDiv
     let loaderDiv = document.createElement("div");
@@ -37,7 +37,7 @@ function removeLoader() {
             loaderContainerDiv.removeChild(loadingTextDiv);
         }
         if (loaderContainerDiv) {
-            document.body.removeChild(loaderContainerDiv);
+            overlayDiv.body.removeChild(loaderContainerDiv);
         }
         if (overlayDiv) {
             document.body.removeChild(overlayDiv);
@@ -45,31 +45,6 @@ function removeLoader() {
     }, 1500);
 }
 
-
-// function showLoader(){
-//     let loader = document.getElementById("loader");
-//     let loaderContainer = document.getElementById("loader-container");
-//     let loaderText = document.getElementById("loading-text");
-//     let overlay = document.getElementById("overlay");
-//     loader.style.display = "block";
-//     loaderContainer.style.display = "flex";
-//     loaderText.style.display = "block";
-//     overlay.style.display = "block";
-
-// }
-
-// function hideLoader() {
-//     let loader = document.getElementById("loader");
-//     let loaderContainer = document.getElementById("loader-container");
-//     let loaderText = document.getElementById("loading-text");
-//     let overlay = document.getElementById("overlay");
-//     setTimeout(() => {
-//         loader.style.display = "none";
-//         loaderContainer.style.display = "none";
-//         loaderText.style.display = "none";
-//         overlay.style.display = "none"; 
-//     }, 1500);
-// }
 function downloadSong() {
     const input = document.getElementById('songUrl');
     //正确的链接格式：https://suno.ai/song/songid/,或者https://suno.com/songs/songid/
