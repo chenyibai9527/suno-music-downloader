@@ -18,7 +18,7 @@ function createLoader() {
     // 创建 loadingTextDiv，并添加到 loaderContainerDiv
     let loadingTextDiv = document.createElement("div");
     loadingTextDiv.id = "loading-text";
-    loadingTextDiv.innerHTML = "Downloading";
+    loadingTextDiv.innerHTML = "Loading";
     loaderContainerDiv.appendChild(loadingTextDiv);
 }
 
@@ -42,7 +42,7 @@ function removeLoader() {
         if (overlayDiv) {
             document.body.removeChild(overlayDiv);
         }
-    }, 1500);
+    }, 1000);
 }
 
 function downloadSong() {
@@ -119,4 +119,52 @@ function downloadVideo() {
             window.URL.revokeObjectURL(url);
         });
     removeLoader();
+}
+// 根据指定歌曲链接下载歌曲
+function saveSong(songUrl,songTitle) {
+  createLoader();
+  // use the fetch API to download the file
+  fetch(songUrl)
+    .then((response) => response.blob())
+    .then((blob) => {
+      // build a URL from the file
+      const url = window.URL.createObjectURL(blob);
+
+      // create a link and set it to the file URL
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${songTitle}.mp3`;
+
+      // programmatically click the link to trigger the download
+      link.click();
+
+      // release the reference to the file by revoking the URL
+      window.URL.revokeObjectURL(url);
+    });
+  removeLoader();
+}
+
+//根据指定链接下载视频
+function saveVideo(videoUrl,videoTitle) {
+    createLoader();
+    // use the fetch API to download the file
+    fetch(videoUrl)
+        .then((response) => response.blob())
+        .then((blob) => {
+          // build a URL from the file
+          const url = window.URL.createObjectURL(blob);
+
+          // create a link and set it to the file URL
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = `${videoTitle}.mp4`;
+
+          // programmatically click the link to trigger the download
+          link.click();
+
+          // release the reference to the file by revoking the URL
+          window.URL.revokeObjectURL(url);
+        }
+        );
+        removeLoader();
 }

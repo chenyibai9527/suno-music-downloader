@@ -1,0 +1,125 @@
+            <html>
+            <head>
+                <title>Explore: Suno AI Song</title>
+                <link rel="stylesheet" type="text/css" href="/styles.css">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
+                <script src="https://cdn.tailwindcss.com"></script>
+            </head>
+                <body>
+                <nav id="menu">
+                    <ul>
+                        <li><img class="logoimg" src="https://cdnjson.com/images/2024/04/16/downloadlogo82a56eef63760804.th.png" alt="suno ai download"></li>
+                        <li><a href="/index.html">DOWNLOAD</a></li>
+                        <li><a href="/explore">EXPLORE</a></li>
+                    </ul>
+                </nav>
+                <div id="music-cards">
+                        ${renderedHTML}
+                </div> 
+                
+                    <div id="sixPlayer" class="bg-gray-800 p-6 mx-auto" >
+                        <div class="flex items-center">
+                            <div class="mx-3">
+                                <h2 class="text-white text-lg">Song Name</h2>
+                            </div>
+                            <button id="playPause" class="ml-auto bg-gray-700 p-2 rounded-full text-white">
+                                Play
+                            </button>
+                        </div>
+
+                        <div class="mt-2">
+                            <p>control</p>
+                            <input type="range" id="progBar" min="0" step="0.1" value="0" class="w-full slider">
+                            <div id="waveform"></div>
+                        </div>
+                        
+                        <div id="volume-control">
+                            <p>Volume</p>
+                            <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="0.5" oninput="setVolume(this.value)"/>
+                        </div>
+                    </div>
+                
+                <script>
+                window.onload = function() {
+                    // 创建一个 Wavesurfer 实例
+                    var wavesurfer = WaveSurfer.create({
+                        container: '#waveform',
+                        waveColor: 'white',
+                        progressColor: 'wheat',
+                        barGap:'11',
+                        barHeight:'40',
+                        barWidth:'2',
+                        minPxPerSec:'1',
+                        hideScrollbar:true,
+                        normalize:true,
+                        cursorWidth:'0',
+                        height:40,
+                        interact:false
+                        
+                    });
+                    // 获取所有的播放按钮
+                    let playButtons = document.querySelectorAll('.play-button');
+
+                    // 为所有的播放按钮添加点击事件监听器
+                    playButtons.forEach(button => {
+                        button.addEventListener('click', function() {
+                            // 获取按钮上的音频链接
+                            let audioUrl = this.dataset.audioUrl;
+                            let title = this.dataset.title;
+                            let displayName = this.dataset.displayName;
+                            let status = "Pause";
+                            // 更新标题和作者信息
+                            document.querySelector('#playPause').textContent = status; 
+                            document.querySelector('.mx-3 h2').textContent = title;
+                            // document.querySelector('.mx-3 p').textContent = displayName;
+                            // 加载音频文件
+                            wavesurfer.load(audioUrl);
+                            // 播放音频
+                            wavesurfer.on('ready', function () {
+                                wavesurfer.play();
+                            });
+                        });
+                    });
+                    function setVolume(value) {
+                        wavesurfer.setVolume(value);
+                            }
+                    document.getElementById("volume").oninput = function() {
+                        setVolume(this.value);
+                    }
+                    wavesurfer.on('audioprocess', function() {
+                        document.getElementById('progBar').value = wavesurfer.getCurrentTime() / wavesurfer.getDuration() * 100;
+                    });
+                    document.getElementById('progBar').addEventListener('input', function () {
+                        wavesurfer.seekTo(this.value / 100);
+                    });
+                    // 获取播放暂停按钮元素
+                    let playPauseButton = document.querySelector("#playPause");
+                    // 注册点击事件
+                    playPauseButton.addEventListener("click", function () {
+                        // 检查当前播放器是否在播放
+                        if (wavesurfer.isPlaying()) {
+                            // 如果在播放，则暂停
+                            wavesurfer.pause();
+                            
+                            this.textContent = 'Play';
+                        } else {
+                            // 如果没有播放，则播放
+                            wavesurfer.play();
+                            
+                            this.textContent = 'Pause';
+                        }
+                    });
+                    let player = document.querySelector('.player-icon');
+                    //注册点击事件
+                        player.addEventListener('click', function () {
+                        if (wavesurfer.isPlaying()) {
+                            player.classList.remove('fa-play');
+                            player.classList.add('fa-pause');
+                        } else {
+                            player.classList.add('fa-play');
+                            player.classList.remove('fa-pause');
+                        }
+                        });
+                }

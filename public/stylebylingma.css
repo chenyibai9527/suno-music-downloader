@@ -1,24 +1,30 @@
+/* 引入 Tailwind CSS */
 @import "https://cdn.tailwindcss.com/2.0.2/tailwind.min.css";
 
+/* 自定义字体 */
 @layer base {
   h1 {
     font-family: "Bungee Spice", sans-serif, cursive;
     margin: 0px;
   }
+
   h2 {
     font-family: "Ubuntu", sans-serif;
   }
+
   .text-lg {
     font-family: "Pixelify Sans", sans-serif;
   }
 }
 
+/* 自定义链接样式 */
 .link {
   font-family: "Pixelify Sans", sans-serif;
   text-decoration: solid;
   color: blueviolet;
 }
 
+/* 自定义按钮样式 */
 button {
   -webkit-user-select: none;
   user-select: none;
@@ -28,10 +34,8 @@ button {
   font-style: normal;
   font-size: 1rem;
 }
-body {
-  display: block;
-  margin: 0px;
-}
+
+/* 导航栏相关样式 */
 #menu ul {
   list-style-type: none;
   display: block;
@@ -46,11 +50,13 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 #menu li {
   justify-content: center;
   align-items: center;
   text-align: center;
 }
+
 #menu li img {
   margin-left: auto;
   margin-right: auto;
@@ -61,6 +67,7 @@ body {
   padding: 8px 8px;
   text-align: center;
 }
+
 #menu li a {
   height: 59px;
   display: flex;
@@ -75,16 +82,7 @@ body {
   font-weight: 800;
 }
 
-#menu li a:hover {
-  text-align: center;
-  align-items: center;
-  background-color: #0d0935;
-  color: white;
-  padding: 8px 8px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
+#menu li a:hover,
 #menu li a.selected {
   text-align: center;
   align-items: center;
@@ -95,6 +93,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* 音乐卡片相关样式 */
 #music-cards {
   display: flex;
   flex-wrap: wrap;
@@ -172,24 +171,23 @@ body {
 .card-image {
   position: relative;
 }
-.card-content {
-  height:fit-content;
-}
 
 .play-pause-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color:white;
+  color: white;
   /* 增加投影 */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  display: none; 
+  display: none;
 }
+
 /* 鼠标移入时显示播放暂停按钮 */
 .card-image:hover .play-pause-container {
   display: block;
 }
+
 .play-pause-container:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.5);
@@ -199,13 +197,14 @@ body {
   color: white;
   display: block;
 }
+
 /* 调整点赞量行排版 */
 .counts {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
-  justify-content:space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   margin-top: 10px;
@@ -222,24 +221,10 @@ body {
 }
 
 /* 调整下载按钮大小 */
-.card-buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
+.download-links .download-link {
+  font-size: 10px; /* 或您所需的大小 */
+  padding: 0.5rem 1rem; /* 可根据需要调整按钮的内边距 */
 }
-.download-guides {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  gap: 0.5rem;
-}
-
-
 
 /* 隐私政策页面样式 */
 .privacy-policy {
@@ -257,10 +242,10 @@ body {
   background: rgba(0, 0, 0, 0.2);
   padding: 4px;
   box-sizing: border-box;
-  border-radius: 8px;
   color: white;
   z-index: -1;
 }
+
 #sixPlayer {
   position: fixed;
   bottom: 0;
@@ -276,15 +261,18 @@ body {
   /* padding-bottom: 40px; */
   z-index: 1000;
 }
+
 .mt-2 input {
   color: wheat;
   z-index: 1000;
   font-size: 10px;
 }
+
 #volume-control p {
   color: wheat;
 }
 
+/* 响应式样式 */
 @media screen and (max-width: 640px) {
   /* 播放器样式 */
   #sixPlayer {
@@ -303,6 +291,7 @@ body {
     bottom: 0;
     z-index: 1000;
   }
+
   #menu li {
     justify-content: center;
     align-items: center;
@@ -310,6 +299,7 @@ body {
     float: left;
     height: fit-content;
   }
+
   #menu li .logoimg {
     display: flex;
     align-items: center;
@@ -320,6 +310,7 @@ body {
     height: 50px;
     width: 50px;
   }
+
   #menu li a {
     color: #fff;
     text-align: center;
@@ -328,7 +319,8 @@ body {
     text-decoration: none;
     height: 50px;
   }
-  #menu li a :hover {
+
+  #menu li a:hover {
     text-align: center;
     align-items: center;
     background-color: #0d0935;
@@ -341,122 +333,30 @@ body {
 
 @media screen and (min-width: 640px) {
   .container {
-    max-width: calc(
-      100% - 150px
-    ); /* Subtract the width of the navigation bar */
+    max-width: calc(100% - 150px); /* Subtract the width of the navigation bar */
     width: fit-content;
     padding-left: 150px; /* Add a left padding equal to the width of the navigation bar */
-  }
-  #menu li img {
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
-  #music-cards {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-around;
-    max-width: calc(100% - 150px);
-    width: fit-content;
-    padding-left: 150px;
-  }
 
-  .music-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin: 10px;
-    padding: 20px;
-    width: 200px;
-  }
+#menu li img { margin-top: 16px; margin-bottom: 16px; }
 
-  .music-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
+#music-cards { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-around; max-width: calc(100% - 150px); width: fit-content; padding-left: 150px; }
 
-  .music-card h3 {
-    text-align: center;
-    color: #333;
-    font-size: 14px;
-    height: 40px;
-  }
+.music-card { display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; border-radius: 8px; margin: 10px; padding: 20px; width: 200px; }
 
-  .music-card audio {
-    width: 100%;
-  }
+.music-card img { width: 100%; height: auto; border-radius: 8px; }
 
-  .music-card a {
-    text-decoration: none;
-    color: #337ab7;
-    text-align: center;
-  }
-}
+.music-card h3 { text-align: center; color: #333; font-size: 14px; height: 40px; }
 
-#loader-container {
-  /* 让里面的元素全部居中对齐 */
-  display: flex;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-  /* 让文字在动画下方 */
-  flex-direction: column;
-  width: 200px;
-  height: 100px;
-  background-color: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(30px);
-  color: black;
-  border-radius: 8px;
-  /* 让元素位于页面中间 */
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  z-index: 1000;
-  transform: translate(-50%, -50%);
-}
+.music-card audio { width: 100%; }
 
-#loader {
-  display: block;
-  border: 12px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 10px solid black;
-  width: 40px;
-  height: 40px;
-  animation: spin 0.5s linear infinite;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-}
+.music-card a { text-decoration: none; color: #337ab7; text-align: center; } }
 
-#loading-text {
-  display: block;
-  user-select: none;
-  z-index: 1000;
-  font-size: 20px;
-  color: rgb(0, 0, 0, 0.65);
-  font-weight: bold;
-}
+/* 加载指示器样式 / #loader-container { / 让里面的元素全部居中对齐 / display: flex; margin: auto; justify-content: center; align-items: center; / 让文字在动画下方 / flex-direction: column; width: 200px; height: 100px; background-color: rgba(255, 255, 255, 0.75); backdrop-filter: blur(30px); color: black; border-radius: 8px; / 让元素位于页面中间 */ position: absolute; top: 30%; left: 50%; z-index: 1000; transform: translate(-50%, -50%); }
 
-#overlay {
-  display: flex;
-  position: fixed;
-  justify-content: center;
-  align-items: center;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
+#loader { display: block; border: 12px solid #f3f3f3; border-radius: 50%; border-top: 10px solid black; width: 40px; height: 40px; animation: spin 0.5s linear infinite; transform: translate(-50%, -50%); z-index: 1000; }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+#loading-text { display: block; user-select: none; z-index: 1000; font-size: 20px; color: rgb(0, 0, 0, 0.65); font-weight: bold; }
+
+#overlay { display: flex; position: fixed; justify-content: center; align-items: center; left: 0; top: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.5); z-index: 999; }
+
+/* 自定义动画 */ @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
