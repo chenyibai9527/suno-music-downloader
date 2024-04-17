@@ -73,7 +73,7 @@ router.get("/explore", async (req, res) => {
                 <div id="music-cards">
                         ${renderedHTML}
                 </div> 
-                
+                  <div id="player-controls" class="flex items-center mt-2">
                     <div id="sixPlayer" class="bg-gray-800 p-6 mx-auto" >
                         <div class="flex items-center">
                             <div class="mx-3">
@@ -97,8 +97,6 @@ router.get("/explore", async (req, res) => {
                             <div id="waveform"></div>
                         </div>
                         
-                        
-
                     </div>
                   </div>
                     <script>
@@ -266,6 +264,8 @@ router.get("/explore", async (req, res) => {
     }
   }
   };
+
+  
                 </script>
             </body>
             </html>
