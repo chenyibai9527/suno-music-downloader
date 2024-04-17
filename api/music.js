@@ -19,13 +19,13 @@ router.get("/explore", async (req, res) => {
         let tagsArray = music.metadata.tags.trim().split(",");
         return `
         <div class="music-card">
-  <div class="card-image">
-    <img src="${music.image_url}" alt="${music.title}, suno ai work free download">
+          <div class="card-image">
+            <img src="${music.image_url}" alt="${music.title}, suno ai work free download">
 
-    <div class="play-pause-container">
-      <i class="fas fa-play play-button" data-audio-url="${music.audio_url}" data-title="${music.title}" data-display_name="${music.display_name}"></i>
-    </div>
-  </div>
+            <div class="play-pause-container">
+              <i class="fas fa-play play-button" data-audio-url="${music.audio_url}" data-title="${music.title}" data-display_name="${music.display_name}"></i>
+            </div>
+          </div>
 
   <div class="card-content">
     <h3 class="music-title mx-4 my-4">${music.title}</h3>
@@ -69,6 +69,7 @@ router.get("/explore", async (req, res) => {
                         <li><a href="/explore">EXPLORE</a></li>
                     </ul>
                 </nav>
+              <div class="card-container"> 
                 <div id="music-cards">
                         ${renderedHTML}
                 </div> 
@@ -76,7 +77,7 @@ router.get("/explore", async (req, res) => {
                     <div id="sixPlayer" class="bg-gray-800 p-6 mx-auto" >
                         <div class="flex items-center">
                             <div class="mx-3">
-                                <h2 class="text-white text-lg">Song Name</h2>
+                                <h2 id="playerTitle" class="text-white text-lg">Song Name</h2>
                             </div>
                             <button id="playPause" class="ml-auto bg-gray-700 p-2 rounded-full text-white hover:bg-opacity-75 rounded-full transition-colors duration-500">
                                 Play
@@ -94,6 +95,7 @@ router.get("/explore", async (req, res) => {
                             <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="0.5" oninput="setVolume(this.value)"/>
                         </div>
                     </div>
+                  </div>
                     <script>
                     window.musicData = ${JSON.stringify(musicData)};
                   </script>
@@ -210,6 +212,7 @@ router.get("/explore", async (req, res) => {
       }
       const firstSong = musicData[0];
       const firstSongUrl = firstSong.audio_url;
+      const firstSongTitle = firstSong.title;
 
       wavesurfer.load(firstSongUrl);
       createLoader();
@@ -218,9 +221,14 @@ router.get("/explore", async (req, res) => {
       wavesurfer.once('ready',()=> {
         handlePlayPauseClick();
         removeLoader();
+        // 赋值标题给播放器
+        document.querySelector('#playerTitle').textContent = firstSongTitle;
+        
       });
     } else {
       handlePlayPauseClick();
+      // 赋值标题给播放器
+        document.querySelector('.text-white .text-lg').textContent = firstSongTitle;
     }
   });
 

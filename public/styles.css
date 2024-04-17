@@ -101,11 +101,24 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-#music-cards {
+.card-container {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+
+#music-cards {
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: calc(100% - 150px);
+    width: fit-content;
 }
 
 .music-card {
@@ -116,7 +129,7 @@ body {
   border-radius: 8px;
   margin: 10px;
   padding: 20px;
-  width: 200px;
+  width: 250px;
 }
 
 .music-card img {
@@ -189,7 +202,6 @@ body {
   transform: translate(-50%, -50%);
   color:white;
   /* 增加投影 */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   display: none; 
 }
 /* 鼠标移入时显示播放暂停按钮 */
@@ -211,15 +223,20 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
+  text-align: center;
   justify-content:space-around;
   align-items: center;
   width: 100%;
   margin-top: 10px;
 }
-
+.counts i {
+  margin-right: 3px;
+  font-size: 12px;
+}
 /* 调整播放量、点赞量图标大小 */
 .play-count i, .upvote-count i {
-  font-size: 9px; /* 或您所需的大小 */
+  font-size: 12px;
+  margin-right: 3px;
 }
 
 /* 调整播放量、点赞量数字大小 */
@@ -379,6 +396,125 @@ body {
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height:auto;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+  #music-cards {
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    width: 100%;
+    height: calc(100%-300px);
+    background-color: transparent;
+  }
+  .music-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 20px;
+    width: 450px;
+    height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .music-card img {
+    width: 100vw;
+    height: auto;
+    border-radius: 8px; 
+  }
+  .music-card h3 {
+    text-align: center;
+    color: #333;
+    font-size: 32px;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width:450px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .music-card .play-pause-container .fas {
+    font-size: 48px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #fff;
+    border-radius: 50%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .music-card .play-pause-container .fas:hover {
+    border-radius: 50%;
+    padding: 20px;
+    transition: all 0.3s;
+  }
+
+    /* 调整点赞量行排版 */
+  .counts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    text-align: center;
+    justify-content:space-around;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* 调整播放量、点赞量图标大小 */
+  .play-count i, .upvote-count i {
+    font-size: 22px; 
+    margin-right: 8px;
+  }
+
+  /* 调整播放量、点赞量数字大小 */
+  .count-value {
+    font-size: 22px; /* 或您所需的大小 */
+  }
+
+    /* 调整下载按钮大小 */
+  .card-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .card-buttons button {
+    width: 150px;
+    height:59px;
+  }
+  .download-guides {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 0.5rem;
+  }
 }
 
 @media screen and (min-width: 640px) {
@@ -394,10 +530,10 @@ body {
     margin-bottom: 16px;
   }
   #music-cards {
-    display: flex;
+    display:flex;
     flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
     max-width: calc(100% - 150px);
     width: fit-content;
     padding-left: 150px;
@@ -411,7 +547,6 @@ body {
     border-radius: 8px;
     margin: 10px;
     padding: 20px;
-    width: 200px;
   }
 
   .music-card img {
