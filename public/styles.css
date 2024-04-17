@@ -28,6 +28,12 @@ button {
   font-style: normal;
   font-size: 1rem;
 }
+
+#playPause{
+  width: fit-content;
+  max-width: 200px;
+}
+
 body {
   display: block;
   margin: 0px;

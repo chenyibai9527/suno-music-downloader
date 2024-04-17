@@ -14,22 +14,7 @@ const getMusicData = async () => {
 router.get("/explore", async (req, res) => {
   try {
      let musicData = await getMusicData();
-    
-
-    // let renderedHTML = musicData.map(music => {
-    //     return `
-    //         <div class="music-card">
-    //             <img src="${music.image_large_url}" alt="${music.title}">
-    //             <h3>${music.title}</h3>
-    //             <audio controls controlsList="nodownload">
-    //               <source src="${music.audio_url}" type="audio/mpeg">
-    //               Your browser does not support the audio element.
-    //             </audio>
-    //             <a href="${music.video_url}" target="_blank">Watch Video</a>
-    //         </div>
-    //     `;
-    // }).join('');
-    let renderedHTML = musicData
+     let renderedHTML = musicData
       .map((music, index) => {
         let tagsArray = music.metadata.tags.trim().split(",");
         return `
@@ -93,7 +78,7 @@ router.get("/explore", async (req, res) => {
                             <div class="mx-3">
                                 <h2 class="text-white text-lg">Song Name</h2>
                             </div>
-                            <button id="playPause" class="ml-auto bg-gray-700 p-2 rounded-full text-white">
+                            <button id="playPause" class="ml-auto bg-gray-700 p-2 rounded-full text-white hover:bg-opacity-75 rounded-full transition-colors duration-500">
                                 Play
                             </button>
                         </div>
@@ -109,7 +94,9 @@ router.get("/explore", async (req, res) => {
                             <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="0.5" oninput="setVolume(this.value)"/>
                         </div>
                     </div>
-                
+                    <script>
+                    window.musicData = ${JSON.stringify(musicData)};
+                  </script>
                 <script>
                 window.onload = function() {
   // 创建一个 Wavesurfer 实例
@@ -129,6 +116,7 @@ router.get("/explore", async (req, res) => {
   });
 
   let currentPlayingButton = null; // 存储当前正在播放的音乐卡片播放按钮
+  let currentPlayingSong = null;
 
   // 获取所有的播放按钮
   let playButtons = document.querySelectorAll('.play-button');
@@ -212,6 +200,31 @@ router.get("/explore", async (req, res) => {
 
   // 注册点击事件
   playPauseButton.addEventListener("click", function() {
+    //如果没有歌曲加载到播放器中
+    if(!wavesurfer.backend.buffer) {
+      // 获取并加载播放列表中的第一首歌曲
+      const musicData = window.musicData;
+      if(!musicData){
+        console.log("No music data found.");
+        return;
+      }
+      const firstSong = musicData[0];
+      const firstSongUrl = firstSong.audio_url;
+
+      wavesurfer.load(firstSongUrl);
+      createLoader();
+
+      //等待歌曲加载完成后再处理播放/暂停逻辑
+      wavesurfer.once('ready',()=> {
+        handlePlayPauseClick();
+        removeLoader();
+      });
+    } else {
+      handlePlayPauseClick();
+    }
+  });
+
+  function handlePlayPauseClick(){
     // 检查当前播放器是否在播放
     if (wavesurfer.isPlaying()) {
       // 如果在播放，则暂停
@@ -225,9 +238,7 @@ router.get("/explore", async (req, res) => {
       }
     } else {
       // 如果没有播放，则播放
-      
       wavesurfer.play();
-      
       playPauseButton.textContent = 'Pause';
 
       // 切换当前播放按钮的图标（如果需要）
@@ -236,8 +247,8 @@ router.get("/explore", async (req, res) => {
         currentPlayingButton.classList.add('fa-pause');
       }
     }
-  });
-};
+  }
+  };
                 </script>
             </body>
             </html>
