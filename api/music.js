@@ -79,21 +79,26 @@ router.get("/explore", async (req, res) => {
                             <div class="mx-3">
                                 <h2 id="playerTitle" class="text-white text-lg">Song Name</h2>
                             </div>
+                            
                             <button id="playPause" class="ml-auto bg-gray-700 p-2 rounded-full text-white hover:bg-opacity-75 rounded-full transition-colors duration-500">
                                 Play
                             </button>
                         </div>
 
                         <div class="mt-2">
-                            <p>Progress bar</p>
+                          <div id="info-bar">
+                            <p id="progress-display">Progress bar</p>
+                            <div id="volume-control">
+                             <p>Volume</p>
+                             <input type="range" id="volume" name="volume" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)"/>
+                            </div>
+                          </div>
                             <input type="range" id="progBar" min="0" step="0.1" value="0" class="w-full slider">
                             <div id="waveform"></div>
                         </div>
                         
-                        <div id="volume-control">
-                            <p>Volume</p>
-                            <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="0.5" oninput="setVolume(this.value)"/>
-                        </div>
+                        
+
                     </div>
                   </div>
                     <script>
@@ -193,6 +198,8 @@ router.get("/explore", async (req, res) => {
     document.getElementById('progBar').value = wavesurfer.getCurrentTime() / wavesurfer.getDuration() * 100;
   });
 
+
+
   document.getElementById('progBar').addEventListener('input', function() {
     wavesurfer.seekTo(this.value / 100);
   });
@@ -210,7 +217,9 @@ router.get("/explore", async (req, res) => {
         console.log("No music data found.");
         return;
       }
-      const firstSong = musicData[0];
+      // 随机选择一首歌曲
+      let songIndex = Math.floor(Math.random() * (49 + 1));
+      const firstSong = musicData[songIndex];
       const firstSongUrl = firstSong.audio_url;
       const firstSongTitle = firstSong.title;
 

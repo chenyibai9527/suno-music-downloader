@@ -299,6 +299,15 @@ body {
   transition: all 0.3s;
 }
 
+#info-bar {
+  /* 设置 */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+}
 
 /* 隐私政策页面样式 */
 .privacy-policy {
