@@ -110,15 +110,19 @@ body {
   width: 100%;
   height: calc(100vh - 60px);
   overflow-y: auto;
+  padding-bottom: 150px;
 }
 
 #music-cards {
     display:flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: normal;
     justify-content: center;
+    gap:1rem;
     max-width: calc(100% - 150px);
     width: fit-content;
+    padding-left: 150px;
 }
 
 .music-card {
@@ -170,28 +174,11 @@ body {
   display: inline-block;
 }
 
-.tags {
-  display: flex;
-  gap: 5px;
-}
-
-.tag {
-  padding: 2px 5px;
-  border-radius: 5px;
-}
-
-.tag.tag1 {
-  background: #a29ce8;
-}
-
-.tag.tag2 {
-  background: #c2e881;
-}
-
 .card-image {
   position: relative;
 }
 .card-content {
+  width:100%;
   height:fit-content;
 }
 
@@ -202,7 +189,7 @@ body {
   transform: translate(-50%, -50%);
   color:white;
   /* 增加投影 */
-  display: none; 
+  display: normal; 
 }
 /* 鼠标移入时显示播放暂停按钮 */
 .card-image:hover .play-pause-container {
@@ -261,6 +248,79 @@ body {
   margin-right: auto;
   gap: 0.5rem;
 }
+/* 标签组样式 */
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  
+}
+/* 定义--tag-color变量 */
+:root {
+  --tag-color-1:rgba(253, 213, 160, 0.4);
+  --tag-color-2:rgba(156, 250, 168, 0.4);
+  --tag-color-3:rgba(159, 197, 255, 0.4);
+  --tag-color-4:rgba(252, 159, 255, 0.4);
+  --tag-color-5:rgba(255, 162, 167, 0.4);
+  --tag-color-6:rgba(66, 252, 143, 0.4);
+  --tag-color-7:rgba(233, 221, 152, 0.4);
+  --tag-color-8:rgba(173, 252, 137, 0.4);
+  --tag-color-9:rgba(162, 229, 255, 0.4);
+  --tag-color-10:rgba(155, 235, 255, 0.4);
+  --tag-color-11:rgba(255, 210, 249, 0.4);
+}
+/* 定义标签样式 */
+.tag {
+  white-space: normal;
+  flex-basis:fit-content;
+  min-width:0;
+  border-radius: 8px;
+  padding-left: 8px;
+  padding-right:8px;
+  font-size: xx-small;
+  width: fit-content;
+  text-decoration: none;
+  text-align: center;
+  font-family: "Pixelify Sans", sans-serif;
+  margin:4px;
+}
+.music-card ul li:nth-child(1){
+  background-color: var(--tag-color-1);
+}
+.music-card ul li:nth-child(2){
+  background-color: var(--tag-color-2);
+}
+.music-card ul li:nth-child(3){
+  background-color: var(--tag-color-3);
+}
+.music-card ul li:nth-child(4){
+    background-color: var(--tag-color-4);
+}
+.music-card ul li:nth-child(5){
+  background-color: var(--tag-color-5);
+}
+.music-card ul li:nth-child(6){
+  background-color: var(--tag-color-6);
+}
+.music-card ul li:nth-child(7){
+  background-color: var(--tag-color-7);
+}
+.music-card ul li:nth-child(8) {
+  background-color: var(--tag-color-8);
+}
+.music-card ul li:nth-child(9){
+  background-color: var(--tag-color-9);
+}
+
+.music-card ul li:nth-child(10){
+  background-color: var(--tag-color-10);
+}
+.music-card ul li:nth-child(11){
+  background-color: var(--tag-color-11);
+}
+
+
 /* 底部播放器样式 */
 #controls {
   display: flex;
@@ -307,6 +367,7 @@ body {
   align-items: center;
   width: 100%;
   height: 40px;
+  margin-bottom: 8px;
 }
 
 /* 隐私政策页面样式 */
@@ -329,6 +390,11 @@ body {
   color: white;
   z-index: -1;
 }
+#sixPlayer #progBar{
+  height:2px;
+}
+
+
 #sixPlayer {
   position: fixed;
   bottom: 0;
@@ -436,6 +502,7 @@ body {
     width: 100%;
     height: calc(100%-300px);
     background-color: transparent;
+    padding-bottom: 200px;
   }
   .music-card {
     display: flex;
@@ -536,61 +603,7 @@ body {
   }
 }
 
-@media screen and (min-width: 640px) {
-  .container {
-    max-width: calc(
-      100% - 150px
-    ); /* Subtract the width of the navigation bar */
-    width: fit-content;
-    padding-left: 150px; /* Add a left padding equal to the width of the navigation bar */
-  }
-  #menu li img {
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
-  #music-cards {
-    display:flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    max-width: calc(100% - 150px);
-    width: fit-content;
-    padding-left: 150px;
-  }
 
-  .music-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin: 10px;
-    padding: 20px;
-  }
-
-  .music-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-
-  .music-card h3 {
-    text-align: center;
-    color: #333;
-    font-size: 14px;
-    height: 40px;
-  }
-
-  .music-card audio {
-    width: 100%;
-  }
-
-  .music-card a {
-    text-decoration: none;
-    color: #337ab7;
-    text-align: center;
-  }
-}
 
 #loader-container {
   /* 让里面的元素全部居中对齐 */

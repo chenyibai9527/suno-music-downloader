@@ -11,12 +11,12 @@ const getMusicData = async () => {
    return musicData;
 };
 
-router.get("/explore", async (req, res) => {
+router.get("/explore", async (req,res) => {
   try {
      let musicData = await getMusicData();
      let renderedHTML = musicData
-      .map((music, index) => {
-        let tagsArray = music.metadata.tags.trim().split(",");
+      .map((music,index) => {
+        let tagsArray = music.metadata.tags.trim().split(",").filter((tag) => tag.trim() !== "");
         return `
         <div class="music-card">
           <div class="card-image">
@@ -31,6 +31,14 @@ router.get("/explore", async (req, res) => {
     <h3 class="music-title mx-4 my-4">${music.title}</h3>
 
     <div class="counts-and-tags">
+      <div class="tags">
+        <ul class="tags-list">
+          ${tagsArray
+          .map((tag) => 
+           `<li class="tag">${tag}</li>`)
+          .join("")}
+          </ul>
+      </div>
       <div class="counts">
         <p class="play-count"><i class="fas fa-headphones"></i><span class="count-value  pr-4">${music.play_count}</span></p>
         <p class="upvote-count"><i class="fas fa-thumbs-up"></i><span class="count-value pr-4">${music.upvote_count}</span></p>
@@ -60,6 +68,15 @@ router.get("/explore", async (req, res) => {
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
                 <script src="https://cdn.tailwindcss.com"></script>
                 <script src="/script.js"></script>
+                <!-- Google tag (gtag.js) -->
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-WR2B98ZPDD"></script>
+                <script>
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+
+                  gtag('config', 'G-WR2B98ZPDD');
+                </script>
             </head>
             <body>
                 <nav id="menu">
@@ -74,7 +91,7 @@ router.get("/explore", async (req, res) => {
                         ${renderedHTML}
                 </div> 
                   <div id="player-controls" class="flex items-center mt-2">
-                    <div id="sixPlayer" class="bg-gray-800 p-6 mx-auto" >
+                    <div id="sixPlayer" class="bg-gray-800 p-4 mx-auto" >
                         <div class="flex items-center">
                             <div class="mx-3">
                                 <h2 id="playerTitle" class="text-white text-lg">Song Name</h2>
@@ -86,14 +103,8 @@ router.get("/explore", async (req, res) => {
                         </div>
 
                         <div class="mt-2">
-                          <div id="info-bar">
-                            <p id="progress-display">Progress bar</p>
-                            <div id="volume-control">
-                             <p>Volume</p>
-                             <input type="range" id="volume" name="volume" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)"/>
-                            </div>
-                          </div>
-                            <input type="range" id="progBar" min="0" step="0.1" value="0" class="w-full slider">
+                          
+                            
                             <div id="waveform"></div>
                         </div>
                         
@@ -115,9 +126,11 @@ router.get("/explore", async (req, res) => {
     minPxPerSec: '1',
     hideScrollbar: true,
     normalize: true,
-    cursorWidth: '0',
+    cursorWidth: '2',
+    cursorColor: 'wheat',
     height: 40,
-    interact: false
+    dragToSeek:true,
+    interact: true
   });
 
   let currentPlayingButton = null; // 存储当前正在播放的音乐卡片播放按钮
@@ -184,23 +197,7 @@ router.get("/explore", async (req, res) => {
   });
 });
 
-  function setVolume(value) {
-    wavesurfer.setVolume(value);
-  }
-
-  document.getElementById("volume").oninput = function() {
-    setVolume(this.value);
-  }
-
-  wavesurfer.on('audioprocess', function() {
-    document.getElementById('progBar').value = wavesurfer.getCurrentTime() / wavesurfer.getDuration() * 100;
-  });
-
-
-
-  document.getElementById('progBar').addEventListener('input', function() {
-    wavesurfer.seekTo(this.value / 100);
-  });
+  
 
   // 获取播放暂停按钮元素
   let playPauseButton = document.querySelector("#playPause");
