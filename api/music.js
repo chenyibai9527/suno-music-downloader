@@ -77,6 +77,16 @@ router.get("/explore", async (req,res) => {
 
                   gtag('config', 'G-WR2B98ZPDD');
                 </script>
+                <script>
+                  var _hmt = _hmt || [];
+                  (function() {
+                    var hm = document.createElement("script");
+                    hm.src = "https://hm.baidu.com/hm.js?0f9634c88091ac0a95dcfd3e4fba8ef4";
+                    var s = document.getElementsByTagName("script")[0]; 
+                    s.parentNode.insertBefore(hm, s);
+                  })();
+                </script>
+
             </head>
             <body>
                 <nav id="menu">
