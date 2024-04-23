@@ -4,11 +4,7 @@ body {
     
     background: radial-gradient(circle  at center, #11121f 20%, #0b0d16 100%);
 }
-.title {
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: #fff;
-}
+
 
 @function getShadows($n){
     $shadows:'#{random(100)}vw #{random(100)}vh #fff';
