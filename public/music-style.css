@@ -8,6 +8,8 @@ body {
   margin: 0;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   font-family: 'Spartan', sans-serif;
@@ -194,7 +196,10 @@ span{
 
   .container{
     width:80vw;
-    height:400px;
+    height:fit-content;
+    min-height:40vh;
+    padding: 8px;
+    backdrop-filter: blur(10px);
    }
 
     .img-container {
@@ -209,8 +214,9 @@ span{
   }
 
   .fas{
-   right:40px;
+   right:0px;
    width:20px;
+   margin-right:0px;
   }
 
   h2 {
@@ -227,18 +233,23 @@ span{
   left:-90px;
   top:10px;
 }
-.circle2{
-  height:180px;
-  width: 180px;
-  left:270px;
-  top:450px;
-}
 
   .progress-container {
     margin: 90px 10px;
     height: 3px;
     width: 90%;
   }
-  
+  .player-controls{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 12px;
+    left:0px;
+    width:100%;
+  }
   
 }
