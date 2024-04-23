@@ -1,5 +1,6 @@
 body {
-  background: radial-gradient(circle at center, #11121f 20%, #0b0d16 100%);
+  /* background: radial-gradient(circle at center, #11121f 20%, #0b0d16 100%); */
+  background: black;
 }
 
 .title {

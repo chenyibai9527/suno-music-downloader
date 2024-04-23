@@ -1,5 +1,6 @@
 const express = require("express");
 const axios = require("axios");
+
 const router = express.Router();
 
 const getMusicData = async () => {
@@ -28,7 +29,7 @@ router.get("/explore", async (req,res) => {
           </div>
 
   <div class="card-content">
-    <h3 class="music-title mx-4 my-4">${music.title}</h3>
+    <h3 class="music-title mx-4 my-4"><a href="/song/${music.id}">${music.title!=''?music.title:"No Title"}</a></h3>
 
     <div class="counts-and-tags">
       <div class="tags">
@@ -281,6 +282,93 @@ router.get("/explore", async (req,res) => {
     console.error(error);
     res.status(500).send("Something went wrong.");
   }
+});
+
+// 创建新的路由
+router.get('/song/:id',async(req,res) =>{
+  const {id} = req.params;//获取请求路径中的id参数
+  
+  // 调用getmusicData函数获取音乐列表数据
+  const musicData = await getMusicData();
+
+  // 根据id查找对应的音乐对象
+  const selectedSong = musicData.find((song) =>song.id === id);
+
+  if(!selectedSong){
+    return res.status(404).send("Song not found.");
+  }
+  // 将musicaData 转为JSON字符串并写入响应头
+  const musicDataJson = JSON.stringify(musicData);
+  const musicDataScript = `<script>window.musicData = ${musicDataJson};</script>`;
+
+  //渲染歌曲详情页
+  res.send(`
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${selectedSong.title}:Usesono to create songs like this</title>
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
+    <link rel="stylesheet" href="/music-style.css">
+    <link rel="stylesheet" href="/star.css">
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+</head>
+<body>
+    <div class="circle"></div>     
+    <div class="circle2"></div>
+    <div class="layer1"></div>
+    <div class="layer2"></div>
+    <div class="layer3"></div>
+    <div class="layer4"></div>
+    <div class="layer5"></div>
+    <div class="container">
+       
+        <div class="img-container tilt">
+
+            <img class="tilt" id= "photo" alt="album cover" src="${selectedSong.image_url}" />    
+        </div>
+        <audio src="${selectedSong.audio_url}"></audio>
+        <h2 id=" title ">${selectedSong.title!=""?selectedSong.title:"No Title"}</h2>
+        <h3 id=" artist ">${selectedSong.display_name}</h3>
+
+
+        <div class="progress-container" id ="progress-container">
+            <div class="progress" id="progress"></div>
+            <div class="duration-wrapper">
+                <span id="current-time">0:00</span>
+                <span id="duration">2:00</span>
+            </div>
+
+            <div class="player-controls">
+                <i class="fas fa-backward" id="prev" title="Previous"></i>
+                <i class="fas fa-play main-button" id="play" title="Play"></i>
+                <i class="fas fa-forward" id="next" title="Next"></i>
+            </div>
+
+    </div>
+
+
+   
+</div>
+
+<script type="text/javascript" src="/titlt.js"> 
+</script>
+<script>
+    VanillaTilt.init(document.querySelector(".tilt"), {
+        max: 25,
+        speed: 400,
+        glare:true,
+        "max-glare":1,
+
+    });
+</script>
+${musicDataScript}
+<script src="/music-script.js"></script>
+</body>
+</html>
+  `);
 });
 
 module.exports = router;
