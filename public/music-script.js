@@ -91,7 +91,7 @@ function navigateToSongIndex(index) {
   music.src = musicData[index].audio_url;
   music.currentTime = 0;
   savedCurrentTime = 0;
-  console.log('After setting currentTime:',music.currentTime);
+  document.title = `${musicData[index].title} - ${musicData[index].display_name}:Use suno to create your own song like this`;
   playSong();
 }
 
