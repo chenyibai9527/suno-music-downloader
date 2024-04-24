@@ -1,7 +1,11 @@
 const express = require("express");
 const axios = require("axios");
-
+const fs = require("fs");
+const path = require("path");
 const router = express.Router();
+const {
+  generateStaticSongPages
+} = require("./staticSongPages");
 
 const getMusicData = async () => {
    let response = await axios.get(
@@ -12,9 +16,14 @@ const getMusicData = async () => {
    return musicData;
 };
 
+
+
 router.get("/explore", async (req,res) => {
   try {
      let musicData = await getMusicData();
+     console.log("musicData length:", musicData.length)
+     generateStaticSongPages(musicData, path.join(__dirname, "../public/songs"));
+
      let renderedHTML = musicData
       .map((music,index) => {
         let tagsArray = music.metadata.tags.trim().split(",").filter((tag) => tag.trim() !== "");
@@ -295,6 +304,21 @@ router.get('/song/:id',async(req,res) =>{
   const selectedSong = musicData.find((song) =>song.id === id);
 
   if(!selectedSong){
+    const staticSongPath = path.join(
+      __dirname,
+      "..",
+      "public",
+      "songs,"`${id}.html`
+    );
+    try {
+      const fileExists = fs.existSync(staticSongPath);
+      if(fileExists){
+        res.sendFile(staticSongPath);
+        return;
+      }
+    } catch (error){
+      console.error('Error checking or sending static song page:',error);
+    }
     return res.status(404).send("Song not found.");
   }
   // 将musicaData 转为JSON字符串并写入响应头
@@ -370,4 +394,7 @@ ${musicDataScript}
   `);
 });
 
-module.exports = router;
+module.exports = {
+  router,
+  getMusicData,
+};
