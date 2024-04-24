@@ -1,5 +1,72 @@
 const fs = require("fs");
 const path = require("path");
+// 新增依赖
+const { isEqual } = require("lodash");
+const moment = require("moment");
+
+// 新增函数：获取当前时间戳（格式：YYYY-MM-DD_HH-mm-ss）
+function getCurrentTimestamp(format = 'YYYY-MM-DD_HH-mm-ss'){
+    const date = new Date();
+    const year = String(date.getFullYear()).padStart(4, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hour = String(date.getHours()).padStart(2, "0");
+    const minute = String(date.getMinutes()).padStart(2, "0");
+    const second = String(date.getSeconds()).padStart(2, "0");
+
+    switch(format){
+        case 'YYYY_MM_DD_HH_mm_ss':
+            return `${year}_${month}_${day}_${hour}_${minute}_${second}`;
+        default:
+            return `${year}-${month}-${day}_${hour}-${minute}-${second}`;
+    }
+}
+
+// 新增函数：写入新的音乐数据
+// 新增函数：写入新的音乐数据
+async function writeNewMusicData(musicData, dataFolderPath) {
+  const now = new Date();
+  const dateStr = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`; // 使用原生JavaScript格式化日期
+
+  const fileName = `${dateStr}.json`;
+  const newPath = path.join(dataFolderPath, fileName);
+
+  try {
+    const files = await fs.promises.readdir(dataFolderPath);
+    const existingDateFiles = files.filter((file) =>
+      /^(\d{4}-\d{2}-\d{2})\.json$/.test(file)
+    );
+
+    if (existingDateFiles.length > 0) {
+      const existingDateStr = existingDateFiles.sort()[0].split(".")[0];
+      // 检查是否存在当天的文件
+      if (existingDateStr !== dateStr) {
+        // 文件日期与当前日期不同，直接写入新文件
+        const jsonDataString = JSON.stringify(musicData, null, 2);
+        await fs.promises.writeFile(newPath, jsonDataString);
+        console.log(`Successfully wrote updated musicData to ${newPath}`);
+      } else {
+        console.log("No need to update musicData. Today's file already exists.");
+      }
+    } else {
+      // 文件不存在，直接写入
+      const jsonDataString = JSON.stringify(musicData, null, 2);
+      await fs.promises.writeFile(newPath, jsonDataString);
+      console.log(`Successfully wrote updated musicData to ${newPath}`);
+    }
+  } catch (err) {
+    console.error("Error accessing or writing JSON file:", err);
+    // 更复杂的错误处理逻辑可以在这里实现，例如重试机制
+  }
+
+  // 确保路径安全性
+  if (!dataFolderPath.startsWith(process.cwd())) {
+    console.error("Invalid dataFolderPath, potential directory traversal detected.");
+    // 抛出错误或进行其他适当的处理
+  }
+}
+
+
 async function generateStaticSongPage(
   song,
   filePath) {
@@ -129,17 +196,16 @@ async function generateStaticSongPages(musicData,songsFolderPath){
     const chunks = [];
     let loopCount = 0;
     let chunkcount = 0;
-    console.log("数组的完整内容",musicData);
 
     for (let i = 0; i < musicData.length; i += chunkSize) {
       chunks.push(musicData.slice(i, i + chunkSize));
     }
 
     for(const chunk of chunks) {
-            console.log(`第几个chunk: ${++chunkcount}`);
+            // console.log(`第几个chunk: ${++chunkcount}`);
         for (const song of chunk) {
-            console.log(`循环次数: ${++loopCount}`);
-            console.log("chunk的长度",chunk.length);
+            // console.log(`循环次数: ${++loopCount}`);
+            // console.log("chunk的长度",chunk.length);
             const filePath = path.join(songsFolderPath, `${song.id}.html`);
             const fileExists = await fs.promises.access(filePath).then(()=> true,()=> false);
             if(!fileExists){
@@ -159,4 +225,5 @@ async function generateStaticSongPages(musicData,songsFolderPath){
 
 module.exports = {
     generateStaticSongPages,
+    writeNewMusicData,
 };
