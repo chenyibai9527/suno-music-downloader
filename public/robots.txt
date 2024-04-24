@@ -1,2 +1,8 @@
 User-agent: *
 Disallow:
+
+User-agent:*
+Allow:/
+
+Sitemap:https://www.sunoai.work/sitemap.xml
+Sitemap:https://www.usesuno.com/sitemap.xml
