@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 const {
-  generateStaticSongPages
+  generateStaticSongPages,writeNewMusicData
 } = require("./staticSongPages");
 
 const getMusicData = async () => {
@@ -21,7 +21,11 @@ const getMusicData = async () => {
 router.get("/explore", async (req,res) => {
   try {
      let musicData = await getMusicData();
-     console.log("musicData length:", musicData.length)
+    //  写入musicData.json
+     writeNewMusicData(musicData, path.join(__dirname, "../public/data"))
+     .catch((error)=>console.error('Error writing music data:',error));
+     
+    // 创建静态页面
      generateStaticSongPages(musicData, path.join(__dirname, "../public/songs"));
 
      let renderedHTML = musicData
