@@ -351,12 +351,32 @@ router.get('/song/:id',async(req,res) =>{
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${selectedSong.title}:Usesono to create songs like this</title>
+    <meta name="description" content="find ${selectedSong.title} mp3 on sunoai.work,Usesuno to create songs like this.">
+    <meta name="keywords" content="${selectedSong.title!=""?selectedSong.title:"You have found a no title song"},${selectedSong.display_name},${selectedSong.metadata.prompt},Usesuno.com,Usesuno to create songs like this,find more infomation on sunoai.work">
+    <title>${selectedSong.title}:Usesuno to create songs like this,find more infomation on sunoai.work</title>
     <link rel="icon" type="image/png" href="/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
     <link rel="stylesheet" href="/music-style.css">
     <link rel="stylesheet" href="/star.css">
     <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0f9634c88091ac0a95dcfd3e4fba8ef4";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WR2B98ZPDD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WR2B98ZPDD');
+</script>
 </head>
 <body>
     <div class="circle"></div>     
@@ -369,7 +389,7 @@ router.get('/song/:id',async(req,res) =>{
        
         <div class="img-container tilt">
 
-            <img class="tilt" id= "photo" alt="album cover" src="${selectedSong.image_url}" />    
+            <img class="tilt" id= "photo" alt="${selectedSong.title!=""?selectedSong.title:"No Title"}:Usesuno to create songs like this,find more infomation on sunoai.work" src="${selectedSong.image_url}" />    
         </div>
         <audio src="${selectedSong.audio_url}"></audio>
         <h2 id=" title ">${selectedSong.title!=""?selectedSong.title:"No Title"}</h2>
