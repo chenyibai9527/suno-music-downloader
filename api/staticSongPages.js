@@ -4,6 +4,20 @@ const path = require("path");
 const { isEqual } = require("lodash");
 const moment = require("moment");
 
+
+// 新增函数：从/public/data/musicData.json中读取并解析音乐数据
+function readCachedMusicData(dataFolderPath){
+  const musicDataFilePath = path.join(dataFolderPath, "musicData.json");
+
+  try{
+    const cachedDataStr = fs.readFileSync(musicDataFilePath, "utf-8");
+    return JSON.parse(cachedDataStr);
+  }catch(error){
+    console.warn('Failed to read or parse cached music data:',error);
+    return null;
+  }
+}
+
 // 新增函数：获取当前时间戳（格式：YYYY-MM-DD_HH-mm-ss）
 function getCurrentTimestamp(format = 'YYYY-MM-DD_HH-mm-ss'){
     const date = new Date();
@@ -23,7 +37,6 @@ function getCurrentTimestamp(format = 'YYYY-MM-DD_HH-mm-ss'){
 }
 
 // 新增函数：写入新的音乐数据
-// 新增函数：写入新的音乐数据
 async function writeNewMusicData(musicData, dataFolderPath) {
   const now = new Date();
   const dateStr = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`; // 使用原生JavaScript格式化日期
@@ -32,11 +45,34 @@ async function writeNewMusicData(musicData, dataFolderPath) {
   const newPath = path.join(dataFolderPath, fileName);
 
   try {
+    // 读取已有的musicData.json文件
+    const musicDataJsonPath = path.join(dataFolderPath, "musicData.json");
     const files = await fs.promises.readdir(dataFolderPath);
     const existingDateFiles = files.filter((file) =>
       /^(\d{4}-\d{2}-\d{2})\.json$/.test(file)
     );
+    const existingMusicDataStr = await fs.promises.readFile(musicDataJsonPath, "utf-8");
+    const existingMusicData = JSON.parse(existingMusicDataStr);
 
+    // 更新已有音乐对象的play_count和unvote_count,或插入新音乐对象
+    musicData.forEach((newMusic)=>{
+      const existingMusic = existingMusicData.find((music) => music.id === newMusic.id);
+      if(existingMusic){
+        existingMusic.play_count = newMusic.play_count;
+        existingMusic.unvote_count = newMusic.unvote_count;
+        console.log(`Updated play_count and unvote_count for music with ID: ${newMusic.id}`);
+      }else {
+        existingMusicData.push(newMusic);
+      }
+    });
+
+    // 更新musicData.json 文件内容
+    const updateMusicDataStr = JSON.stringify(existingMusicData, null, 2);
+    await fs.promises.writeFile(musicDataJsonPath, updateMusicDataStr);
+    console.log("Successfully updated musicData.json");
+
+
+    // 继续执行原油逻辑，写入日期命名的json文件
     if (existingDateFiles.length > 0) {
       const existingDateStr = existingDateFiles.sort()[0].split(".")[0];
       // 检查是否存在当天的文件
@@ -46,7 +82,7 @@ async function writeNewMusicData(musicData, dataFolderPath) {
         await fs.promises.writeFile(newPath, jsonDataString);
         console.log(`Successfully wrote updated musicData to ${newPath}`);
       } else {
-        console.log("No need to update musicData. Today's file already exists.");
+        console.log("No need to update YYYY-MM-DDJson. Today's file already exists.");
       }
     } else {
       // 文件不存在，直接写入
@@ -226,4 +262,5 @@ async function generateStaticSongPages(musicData,songsFolderPath){
 module.exports = {
     generateStaticSongPages,
     writeNewMusicData,
+    readCachedMusicData,
 };

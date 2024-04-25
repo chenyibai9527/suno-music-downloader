@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 const {
-  generateStaticSongPages,writeNewMusicData
+  generateStaticSongPages,writeNewMusicData,readCachedMusicData
 } = require("./staticSongPages");
 
 const getMusicData = async () => {
@@ -22,7 +22,7 @@ router.get("/explore", async (req,res) => {
   try {
      let musicData = await getMusicData();
     //  写入musicData.json
-     writeNewMusicData(musicData, path.join(__dirname, "../public/data"))
+    await writeNewMusicData(musicData, path.join(__dirname, "../public/data"))
      .catch((error)=>console.error('Error writing music data:',error));
      
     // 创建静态页面
@@ -77,6 +77,7 @@ router.get("/explore", async (req,res) => {
             <head>
                 <title>Explore: Suno AI Song</title>
                 <link rel="stylesheet" type="text/css" href="/styles.css">
+                <link rel="icon" href="/favicon.ico" type="image/x-icon">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
@@ -301,8 +302,22 @@ router.get("/explore", async (req,res) => {
 router.get('/song/:id',async(req,res) =>{
   const {id} = req.params;//获取请求路径中的id参数
   
-  // 调用getmusicData函数获取音乐列表数据
-  const musicData = await getMusicData();
+  // 检查id是否已传递
+  if(!id){
+    return res.redirect('/explore');
+  }
+
+  // 定义数据缓存路径
+  const dataFolderPath = path.join(__dirname, "..", "public", "data");
+  // 尝试读取缓存的musicData.json文件
+  let musicData = readCachedMusicData(dataFolderPath);
+
+  // 如果缓存不存在，重新获取并更新缓存
+  if(!musicData){
+    musicData = await getMusicData();
+    await writeNewMusicData(musicData,dataFolderPath);
+  };
+  
 
   // 根据id查找对应的音乐对象
   const selectedSong = musicData.find((song) =>song.id === id);
@@ -312,7 +327,7 @@ router.get('/song/:id',async(req,res) =>{
       __dirname,
       "..",
       "public",
-      "songs,"`${id}.html`
+      `songs/${id}.html`
     );
     try {
       const fileExists = fs.existsSync(staticSongPath);
