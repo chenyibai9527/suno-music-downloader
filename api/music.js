@@ -315,7 +315,7 @@ router.get('/song/:id',async(req,res) =>{
       "songs,"`${id}.html`
     );
     try {
-      const fileExists = fs.existSync(staticSongPath);
+      const fileExists = fs.existsSync(staticSongPath);
       if(fileExists){
         res.sendFile(staticSongPath);
         return;
