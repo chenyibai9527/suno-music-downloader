@@ -380,6 +380,7 @@ var _hmt = _hmt || [];
 </head>
 <body>
     <div class="circle"></div>     
+    <div class="circle2"></div>
     <div class="layer1"></div>
     <div class="layer2"></div>
     <div class="layer3"></div>

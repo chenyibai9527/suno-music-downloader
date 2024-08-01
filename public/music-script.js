@@ -152,11 +152,3 @@ function setProgressBar(e) {
 music.addEventListener("timeupdate", updateProgress);
 progress.addEventListener("click", setProgressBar);
 
-music.addEventListener("ended", () => {
-  isPlaying = false;
-  pauseSong();
-  playBtn.classList.replace("fa-pause", "fa-play");
-  playBtn.setAttribute("title", "play");
-  savedCurrentTime = music.currentTime;
-  music.pause();
-});
